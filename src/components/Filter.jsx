@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Checkbox, Button } from 'antd';
-import Animals from './Animals';
 
 const fruitsOptions = [
     { label: 'Red Apple', value: 'apple' },
@@ -20,7 +19,7 @@ const Filter = () => {
     const [fruits, setFruits] = useState([]);
     const [animals, setAnimals] = useState([]);
 
-    const addFilters = (arr,setElement) => {
+    const addFilters = (arr, setElement) => {
         return arr.map((ele) => (
             <span key={ele} style={{ backgroundColor: 'blue', color: 'white', margin: '2px', padding: '1px', fontSize: '20px' }}>
                 <span> {ele} </span> <button style={{ color: '#ffb69c', border: 'none', outline: 'none', backgroundColor: 'transparent' }} onClick={() => {
@@ -142,17 +141,20 @@ const Filter = () => {
                 <h1>Filters</h1>
             </header>
 
-            <div style={{ border: '1px solid black', padding: '10px' }}>
-                Filtered Show : <br /> <br />
-                {addFilters(fruits, setFruits)}
-                {addFilters(animals, setAnimals)}
+            { fruits.length || animals.length ? 
+                <>
+                    <div style={{ border: '1px solid black', padding: '10px' }}>
+                        <h3> Filtered items  : </h3>
+                        {addFilters(fruits, setFruits)}
+                        {addFilters(animals, setAnimals)}
 
-                {fruits.length || animals.length ? <> <br /> <Button type="primary" danger onClick={() => { setFruits([]); setAnimals([]) }} style={{ borderRadius: '44px' }}> clear </Button> </> : null
-                }
+                        <br /> <Button type="primary" danger onClick={() => { setFruits([]); setAnimals([]) }} style={{ borderRadius: '44px' }}> clear </Button> 
 
-            </div> <br />
+                    </div> <br /> 
+                </> : null
+            }
             <div style={{ border: '1px solid black' }}>
-                <h1> Fruits </h1>
+                <h2> Fruits </h2>
                 <Checkbox.Group
                     options={fruitsOptions}
                     //   defaultValue={fruits}
@@ -161,7 +163,7 @@ const Filter = () => {
             </div> <br />
 
             <div style={{ border: '1px solid black' }}>
-                <h1> Animals </h1>
+                <h2> Animals </h2>
                 <Checkbox.Group
                     options={animalsOptions}
                     //   defaultValue={fruits}

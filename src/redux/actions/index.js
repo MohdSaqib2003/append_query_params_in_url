@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const fetchData = (pageNum) => async dispatch => {
-    console.log('click top');
+    console.log('click top',pageNum);
     // "size": 4
 
     var data = JSON.stringify({

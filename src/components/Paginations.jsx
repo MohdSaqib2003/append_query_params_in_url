@@ -6,27 +6,25 @@ import Card from './Card';
 
 
 const Paginations = (props) => {
-    const [pageNum, setPageNum] = useState(1);
+    
+
+    const url = new URL(window.location.href);
+    // this function gets the value of 'page' query 
+    let pgNo = url.searchParams.get('page');
+    if(!pgNo){
+        pgNo = 1;   // if pgNo == NULL , then initialize with 1
+    }
+    const [pageNum, setPageNum] = useState(pgNo);       // Initialize the state with the value of URL
 
     const onChange = (e) => {        
         setPageNum(e);
     }
 
-    useEffect(() => {
-        
-        const url = new URL(window.location.href);
-        // this function gets the value of 'page' query 
-        const pgNo = url.searchParams.get('page');
-        
-        // if value of 'pgNo' null then set 1 to 'pageNum' state
-        if (!pgNo) {
-            setPageNum(1);
-        } else {
-            setPageNum(pgNo);       // else set the value from url
-        }
+    useEffect(() => {        
+
         url.searchParams.set('page', pageNum);
         
-        console.log(pgNo);        
+        // console.log(pgNo);        
         window.history.pushState({ path: url.href }, '', url.href);
         
         props.fetchData(pageNum);
@@ -34,15 +32,18 @@ const Paginations = (props) => {
     }, []);
 
     useEffect(() => {
-        console.log(pageNum);
+        // console.log(pageNum);
 
         if (pageNum !== 0) {
             const url = new URL(window.location.href);
             url.searchParams.set('page', pageNum);
             window.history.pushState({ path: url.href }, '', url.href);
         }
-        props.fetchData(pageNum)
+        props.fetchData(pageNum);
+
+
     }, [pageNum]);
+
     return (
         <>
             <div style={{ display: 'flex', flexFlow: 'column wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
@@ -51,7 +52,11 @@ const Paginations = (props) => {
                 ))}
             </div> <br /> <br />
             <div style={{ textAlign: 'center' }}>
+                
+                {/* <Pagination defaultCurrent={pageNum} total={50} onChange={onChange} /> */}
+
                 <Pagination defaultCurrent={pageNum} total={50} onChange={onChange} />
+
             </div> <br /> <br />
         </>
     );
