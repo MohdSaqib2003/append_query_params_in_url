@@ -46,6 +46,7 @@ const Paginations = (props) => {
 
     return (
         <>
+
             <div style={{ display: 'flex', flexFlow: 'column wrap', flexDirection: 'row', justifyContent: 'space-between' }}>
                 {props.collection.map((data) => (
                     <Card key={data._id} data={data} />
@@ -53,8 +54,6 @@ const Paginations = (props) => {
             </div> <br /> <br />
             <div style={{ textAlign: 'center' }}>
                 
-                {/* <Pagination defaultCurrent={pageNum} total={50} onChange={onChange} /> */}
-
                 <Pagination defaultCurrent={pageNum} total={50} onChange={onChange} />
 
             </div> <br /> <br />
